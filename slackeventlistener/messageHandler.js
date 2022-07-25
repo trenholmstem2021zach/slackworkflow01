@@ -2,17 +2,26 @@
 module.exports =
         function (app, botToken, slackChannelId, logger) {
             {
-
                 app.message(async ({message, say}) => {
-                    logger.info("Message Received:"  + message.text)
-                    console.log(message)
-                    console.log("Message:" + message.text)
-                    await app.client.chat.postMessage({
-                        token: botToken,
-                        channel: slackChannelId,
-                        thread_ts: message.ts,
-                        text: "Working On It"
-                    })
+                    if (message.thread_ts === undefined) {
+                        if (message.subtype !== undefined && message.subtype === 'bot_message') {
+                            console.log(message)
+                            const m1 = message.text.split("\*")
+                            console.log(m1)
+                            await app.client.chat.postMessage({
+                                token: botToken,
+                                channel: slackChannelId,
+                                thread_ts: message.ts,
+                                text: "Support Requests Working On It"
+                            })
+                        } else {
+                            logger.info("Message Received Ignore Future TBD ... :" + message.text)
+                        }
+
+                    } else {
+                        //Thread
+                        logger.info("Thread message:  Future TBD ...")
+                    }
                 });
 
             }
