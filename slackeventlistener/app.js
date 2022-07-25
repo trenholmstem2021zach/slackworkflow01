@@ -1,26 +1,40 @@
-const { App } = require('@slack/bolt');
+require('dotenv').config()
+const logger = require('pino')()
 
-// Initializes your app with your bot token and signing secret
-const app = new App({
-    token: process.env.SLACK_BOT_TOKEN,
-    signingSecret: process.env.SLACK_SIGNING_SECRET,
-    appToken: process.env.SLACK_APP_TOKEN
-});
+const logLevel = process.env.SLACK_BOT_LOG_LEVEL
+logger.levels = logLevel || 'info'
 
-app.message(async ({ message, say }) => {
-    console.log(message)
-    console.log("Message:" + message.text)
-    await app.client.chat.postMessage({
-        token: process.env.SLACK_BOT_TOKEN,
-        channel: 'C03DL3VMLLU',
-        thread_ts: message.ts,
-        text: "Working On It"
-    })
-});
+const botToken = process.env.SLACK_BOT_TOKEN
+const slackSigningSecret = process.env.SLACK_SIGNING_SECRET
+const slackAppToken = process.env.SLACK_APP_TOKEN
+const slackChannelId = process.env.SLACK_CHANNEL_ID
 
-(async () => {
-    // Start your app
-    await app.start(process.env.PORT || 8000);
+if (   botToken === undefined
+    || slackSigningSecret === undefined
+    || slackAppToken === undefined
+    || slackChannelId === undefined
+) {
 
-    console.log('⚡️ Bolt app is running!');
-})();
+    console.log("[ERROR001: Missing Environment Configuration.  Check the Following env settings")
+    console.log( "-- SLACK_BOT_TOKEN")
+    console.log( "-- SLACK_SIGNING_SECRET")
+    console.log( "-- SLACK_APP_TOKEN")
+
+} else {
+    const { App } = require('@slack/bolt');
+    const messageHandler = require("./messageHandler")
+    const app = new App({
+        token: botToken,
+        signingSecret: slackSigningSecret,
+        appToken: slackAppToken
+    });
+
+    messageHandler(app, botToken, slackChannelId, logger);
+
+    (async () => {
+        console.log("App Starting ")
+        await app.start(process.env.PORT || 8000);
+
+        console.log('⚡️ Bolt app is running! on Port: ' + process.env.PORT );
+    })();
+}
