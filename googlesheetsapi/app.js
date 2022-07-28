@@ -14,8 +14,8 @@ const doSomethingAsync = async (googleSheetId) => {
 
     await doc.loadInfo(); // loads document properties and worksheets
     console.log(doc.title);
-    /*
-    await doc.updateProperties({ title: 'renamed doc' });
+
+    await doc.updateProperties({ title: 'works doc' });
 
     const sheet = doc.sheetsByIndex[0]; // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
     console.log(sheet.title);
@@ -25,7 +25,6 @@ const doSomethingAsync = async (googleSheetId) => {
     const newSheet = await doc.addSheet({ title: 'hot new sheet!' });
     await newSheet.delete();
 
-     */
 }
 
 doSomethingAsync('1aUhDk3y5sKEd15VpYZsXKN11vNjDetNyCLgSW7U_QqA');

@@ -1,5 +1,7 @@
 # Google Spreadsheet
 
+NOTE: Remember to give access to the service account for the Google Sheet.
+
 https://docs.google.com/spreadsheets/d/1aUhDk3y5sKEd15VpYZsXKN11vNjDetNyCLgSW7U_QqA/edit#gid=0
 
 Docs:
