@@ -1,0 +1,15 @@
+{
+  "name": "googlesheetsapi",
+  "version": "1.0.0",
+  "description": "Simple Google sheet client",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zach Lewis",
+  "license": "MIT",
+  "dependencies": {
+    "google-spreadsheet": "^3.3.0",
+    "googleapis": "^39.2.0"
+  }
+}
