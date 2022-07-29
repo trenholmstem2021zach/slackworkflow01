@@ -27,7 +27,7 @@ module.exports =
                             //logger.info("Thread message:  Future TBD ..." + message.type)
                         }
                     } else {
-                        if ( message.channel === 'C30LCU8S3') {
+                        if ( message.channel === 'CBU0KDSB1') {
                             console.log(message)
                             console.log(message.text)
                         }
