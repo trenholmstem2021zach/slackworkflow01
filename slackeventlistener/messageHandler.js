@@ -1,37 +1,37 @@
 
+// Message Handler
+// List to all Message Events
+//
+
 module.exports =
-        function (app, botToken, slackChannelId, logger) {
+        function (app, botToken, slackChannelId, slackWorkflowId, logger) {
             {
                 app.message(async ({message, say}) => {
                     if (message.channel === slackChannelId) {
-                        if (message.thread_ts === undefined && message.bot_id === 'B022J521AG0') {
+                        if (message.thread_ts === undefined && message.bot_id === slackWorkflowId) {
                             if (message.subtype !== undefined && message.subtype === 'bot_message') {
-                                console.log(message)
-                                const m1 = message.text.split("\*")
-                                console.log(m1)
-                               /* await app.client.chat.postMessage({
-                                    token: botToken,
-                                    channel: slackChannelId,
-                                    thread_ts: message.ts,
-                                    text: "Support Requests Working On It"
-                                }) */
-                                // Add call another work on it function.
-                            } else {
-                                console.log(message)
-                                // logger.info("Message Received Ignore Future TBD ... :" + message.text)
-                            }
 
+                                console.log(message.channel)
+                                const m1 = message.text
+                                console.log(m1)
+                            } else {
+                                logger.info("Message Received Ignore Future TBD ... :" + message.channel + ":" + message.text)
+                            }
                         } else {
-                            //Thread
                             console.log(message)
-                            //logger.info("Thread message:  Future TBD ..." + message.type)
                         }
                     } else {
-                        if ( message.channel === 'CBU0KDSB1') {
-                            console.log(message)
+                            // All events flowthrough
+                            // other channels
+                            const TBD = 'future'
+                            /*
+                            console.log(message.channel)
+                            console.log(message.type)
                             console.log(message.text)
-                        }
+                            */
                     }
+                    // ignore
+                    //console.log(message)
                 });
 
             }

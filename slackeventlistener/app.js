@@ -7,7 +7,8 @@ logger.levels = logLevel || 'info'
 const botToken = process.env.SLACK_BOT_TOKEN
 const slackSigningSecret = process.env.SLACK_SIGNING_SECRET
 const slackAppToken = process.env.SLACK_APP_TOKEN
-const slackChannelId = process.env.SLACK_CHANNEL_ID
+const slackChannelId = process.env.SLACK_CHANNEL_ID || "NONE"
+const slackWorkflowId= process.env.SLACK_WORKFLOW_ID || "None"
 
 if (   botToken === undefined
     || slackSigningSecret === undefined
@@ -29,7 +30,7 @@ if (   botToken === undefined
         appToken: slackAppToken
     });
 
-    messageHandler(app, botToken, slackChannelId, logger);
+    messageHandler(app, botToken, slackChannelId, slackWorkflowId, logger);
 
     (async () => {
         console.log("App Starting ")
